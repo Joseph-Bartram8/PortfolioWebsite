@@ -1,15 +1,6 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-export default function NavigationBar({ setIsExiting} : { setIsExiting: React.Dispatch<React.SetStateAction<boolean>> }) {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const handleNavigation = (path: string) => {
-    setIsExiting(true);
-    setTimeout(() => navigate(path), 1500);
-  };
+export default function NavigationBar() {
 
   const pages = [
     { name: 'Home', path: '/' },

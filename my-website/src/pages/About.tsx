@@ -1,24 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export default function About() {
-  const navigate = useNavigate();
   const [isTransitioning, setIsTransitioning] = useState(true);
 
   useEffect(() => {
     setTimeout(() => setIsTransitioning(false), 100);
   }, []);
-
-  useEffect(() => {
-    if (isTransitioning) {
-      document.body.style.overflowY = 'hidden';
-    }
-    else {
-      setTimeout(() => {
-        document.body.style.overflow = 'auto';
-      }, 800);
-    }
-  }, [isTransitioning]);
 
   return (
     <div className={`relative flex flex-col items-center justify-center min-h-screen py-10 overflow-hidden transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>

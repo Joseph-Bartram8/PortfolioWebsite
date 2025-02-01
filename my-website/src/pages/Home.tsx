@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Home() {
@@ -12,16 +12,6 @@ export default function Home() {
       setTimeout(() => setIsTransitioning(false), 900);
   }, [location.pathname]);
 
-  useEffect(() => {
-    if (isTransitioning) {
-      return () => {
-        setTimeout(() => {
-          document.body.style.overflowY = 'auto';
-        }, 1600);
-      };
-    }
-  }, [isTransitioning]);
-
   const handleNavigate = () => {
     setIsTransitioning(true);
     document.body.style.overflowY = 'hidden';
@@ -29,7 +19,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`absolute inset-0 flex flex-col items-center justify-center min-h-screen py-2 overflow-hidden transition-all duration-[1500ms] ease-in-out ${isTransitioning ? 'translate-y-10 opacity-0' : 'translate-y-0 opacity-100'}`}>
+    <div className={`absolute inset-0 flex flex-col items-center justify-center min-h-screen h-full w-full overflow-y-auto py-2 overflow-hidden transition-all duration-[1500ms] ease-in-out ${isTransitioning ? 'translate-y-10 opacity-0' : 'translate-y-0 opacity-100'}`}>
       <h1 className="text-6xl font-bold text-white drop-shadow-lg">Welcome to my portfolio</h1>
       <p className="text-2xl text-white drop-shadow-md">This is a portfolio website built with React and Tailwind CSS.</p>
       <button 
