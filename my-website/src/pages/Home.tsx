@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Home() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
+
+  useEffect(() => {
+    if (!hasLoadedOnce) {
+      setHasLoadedOnce(true);
+      setIsTransitioning(true);
+      setTimeout(() => setIsTransitioning(false), 800);
+    } else {
+      setIsTransitioning(true);
+      setTimeout(() => setIsTransitioning(false), 800);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (isTransitioning) {
