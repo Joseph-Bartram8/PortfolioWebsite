@@ -10,7 +10,7 @@ export default function Home() {
       document.body.style.overflow = 'hidden';
       setTimeout(() => {
         document.body.style.overflow = 'auto';
-      }, 800); // Wait for transition to finish before enabling scrolling
+      }, 800);
     }
     return () => {
       document.body.style.overflow = 'auto';

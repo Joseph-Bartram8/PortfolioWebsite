@@ -34,36 +34,6 @@ export default function About() {
           In my free time, I'm exploring Flutter for app development and Unreal Engine 5 for game development.
         </p>
       </div>
-      
-      {/* Staggered Navigation Cards */}
-      <div className="mt-10 flex flex-col gap-12 w-full max-w-6xl">
-        <div className="flex justify-start">
-          <div className="relative bg-gray-800 p-10 rounded-lg shadow-lg text-left cursor-pointer transform transition duration-300 hover:scale-105 overflow-hidden w-[40vw] h-[50vh]"
-            onClick={() => navigate('/education')}>
-            <div className="absolute inset-0 bg-cover bg-center opacity-30 hover:opacity-50 transition-opacity" style={{ backgroundImage: "url('/education-preview.jpg')" }}></div>
-            <h2 className="relative text-4xl font-semibold text-white z-10">Education</h2>
-            <p className="relative text-white z-10 mt-4 text-lg">A look at my educational background and achievements.</p>
-          </div>
-        </div>
-
-        <div className="flex justify-end">
-          <div className="relative bg-gray-800 p-10 rounded-lg shadow-lg text-left cursor-pointer transform transition duration-300 hover:scale-105 overflow-hidden w-[40vw] h-[50vh]"
-            onClick={() => navigate('/portfolio')}>
-            <div className="absolute inset-0 bg-cover bg-center opacity-30 hover:opacity-50 transition-opacity" style={{ backgroundImage: "url('/portfolio-preview.jpg')" }}></div>
-            <h2 className="relative text-4xl font-semibold text-white z-10">Portfolio</h2>
-            <p className="relative text-white z-10 mt-4 text-lg">Projects and work that I've completed.</p>
-          </div>
-        </div>
-
-        <div className="flex justify-start">
-          <div className="relative bg-gray-800 p-10 rounded-lg shadow-lg text-left cursor-pointer transform transition duration-300 hover:scale-105 overflow-hidden w-[40vw] h-[50vh]"
-            onClick={() => navigate('/contact')}>
-            <div className="absolute inset-0 bg-cover bg-center opacity-30 hover:opacity-50 transition-opacity" style={{ backgroundImage: "url('/contact-preview.jpg')" }}></div>
-            <h2 className="relative text-4xl font-semibold text-white z-10">Contact Me</h2>
-            <p className="relative text-white z-10 mt-4 text-lg">Get in touch with me for collaborations or inquiries.</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
