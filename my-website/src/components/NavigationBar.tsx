@@ -11,13 +11,13 @@ export default function NavigationBar() {
   ];
   
   return (
-    <nav className={`fixed z-50 w-full flex justify-center p-6 transition-transform duration-700'}`}>
+    <nav className="fixed z-50 w-full flex justify-center pt-[50px] p-6 transition-transform duration-700">
       <div className="flex-1 flex justify-center space-x-6 md:space-x-12">
         {pages.map((page) => (
           <Link
             key={page.name}
             to={page.path}
-            className="text-white hover:text-gray-300 transition relative group cursor-pointer"
+            className="text-white text-[19px] hover:text-gray-200 hover:text-[23px] transition-all duration-300 relative group cursor-pointer"
           >
             {page.name}
             <span className="absolute left-0 bottom-[-2px] h-[2px] w-0 bg-white group-hover:w-full transition-all duration-300"></span>

@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 export default function BinaryWall() {
   const [isActive, setIsActive] = useState(true);
-  const columns = 20;
-  const rows = 15;
+  const columns = 30;
+  const rows = 20;
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -21,11 +21,11 @@ export default function BinaryWall() {
           {Array.from({ length: rows }).map((_, rowIdx) => (
             <span
               key={rowIdx}
-              className={`text-gray-200 text-lg ${isActive ? 'animate-binary-fall' : ''}`}
+              className={`text-gray-500 text-lg ${isActive ? 'animate-binary-fall' : ''}`}
               style={{
                 animationDelay: `${Math.random() * 3}s`,
                 animationDuration: `${3 + Math.random() * 2}s`,
-                transform: `translateY(-${Math.random() * 100}vh)`
+                transform: `translateY(-${Math.random()}vh) translateX(${Math.random()}vw)`,
               }}
             >
               {Math.random() > 0.5 ? '1' : '0'}
