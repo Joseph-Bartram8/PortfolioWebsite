@@ -5,38 +5,31 @@ export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
 
   useEffect(() => {
-    if (!hasLoadedOnce) {
-      setHasLoadedOnce(true);
       setIsTransitioning(true);
-      setTimeout(() => setIsTransitioning(false), 800);
-    } else {
-      setIsTransitioning(true);
-      setTimeout(() => setIsTransitioning(false), 800);
-    }
+      document.body.style.overflowY = 'hidden';
+      setTimeout(() => setIsTransitioning(false), 900);
   }, [location.pathname]);
 
   useEffect(() => {
     if (isTransitioning) {
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => {
-        document.body.style.overflow = 'auto';
-      }, 800);
+      return () => {
+        setTimeout(() => {
+          document.body.style.overflowY = 'auto';
+        }, 1600);
+      };
     }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
   }, [isTransitioning]);
 
   const handleNavigate = () => {
     setIsTransitioning(true);
-    setTimeout(() => navigate('/about'), 800);
+    document.body.style.overflowY = 'hidden';
+    setTimeout(() => navigate('/about'), 1500);
   };
 
   return (
-    <div className={`relative flex flex-col items-center justify-center min-h-screen py-2 overflow-hidden transition-transform duration-700 ease-in-out ${isTransitioning ? '-translate-y-full' : 'translate-y-0'}`}>
+    <div className={`absolute inset-0 flex flex-col items-center justify-center min-h-screen py-2 overflow-hidden transition-all duration-[1500ms] ease-in-out ${isTransitioning ? 'translate-y-10 opacity-0' : 'translate-y-0 opacity-100'}`}>
       <h1 className="text-6xl font-bold text-white drop-shadow-lg">Welcome to my portfolio</h1>
       <p className="text-2xl text-white drop-shadow-md">This is a portfolio website built with React and Tailwind CSS.</p>
       <button 

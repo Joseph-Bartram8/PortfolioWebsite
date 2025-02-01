@@ -2,9 +2,14 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-export default function NavigationBar() {
+export default function NavigationBar({ setIsExiting} : { setIsExiting: React.Dispatch<React.SetStateAction<boolean>> }) {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const handleNavigation = (path: string) => {
+    setIsExiting(true);
+    setTimeout(() => navigate(path), 1500);
+  };
 
   const pages = [
     { name: 'Home', path: '/' },
@@ -13,11 +18,9 @@ export default function NavigationBar() {
     { name: 'Portfolio', path: '/portfolio' },
     { name: 'Contact', path: '/contact' }
   ];
-
-  const isVisible = location.pathname !== '/';
   
   return (
-    <nav className={`fixed z-50 w-full flex justify-center p-6 transition-transform duration-700 ${isVisible ? 'translate-x-0 pointer-events-auto' : '-translate-x-full'}`}>
+    <nav className={`fixed z-50 w-full flex justify-center p-6 transition-transform duration-700'}`}>
       <div className="flex-1 flex justify-center space-x-6 md:space-x-12">
         {pages.map((page) => (
           <Link
