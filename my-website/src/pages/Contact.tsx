@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { FaUser, FaEnvelope, FaPaperPlane, FaComment, FaQuestionCircle } from 'react-icons/fa';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
@@ -72,19 +72,28 @@ export default function Contact() {
     };
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch('https://portfoliowebsite-78sn.onrender.com/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message })
+    });
+
+    if (response.ok) {
+      window.location.href = "/thank-you"; // Redirect to Thank You page
+    } else {
+      alert("Failed to send email.");
+    }
+  };
+
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen pt-20 md:pt-28 px-6 overflow-hidden transition-transform duration-700 ease-in-out">
       <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 w-auto md:w-250">Contact Me</h1>
       
       <div className="relative flex flex-col md:flex-row items-center justify-center w-full max-w-5xl gap-6">
-        {/* Contact Form with One.com Form Handling */}
-        <form action="/cgi-bin/formmail.pl" method="POST" className="w-full md:w-2/3 bg-gray-800 p-6 rounded-lg shadow-lg">
-          <input type="hidden" name="recipient" value="contactme@josephbartram.co.uk" />
-          <input type="hidden" name="subject" value="New Contact Form Submission" />
-          <input type="hidden" name="redirect" value="/thankyou" />
-          <input type="hidden" name="missing_fields_redirect" value="/Contact" />
-          <input type="hidden" name="required" value="realname,email,Message" />
-
+        {/* Contact Form */}
+        <form onSubmit={handleSubmit} className="w-full md:w-2/3 bg-gray-800 p-6 rounded-lg shadow-lg">
           {/* Name & Email Row */}
           <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
             <div className="w-full md:w-1/2">
