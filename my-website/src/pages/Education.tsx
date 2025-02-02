@@ -29,7 +29,7 @@ export default function Education() {
   ];
 
   return (
-    <div className={`relative flex flex-col items-center justify-center min-h-screen pt-20 md:pt-28 px-4 overflow-hidden transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>
+    <div className={`relative flex flex-col items-center justify-center min-h-screen pt-20 md:pt-28 px-4 ${isMobile ? 'overflow-auto' : 'overflow-hidden'} transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>
       <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 md:mb-12">My Education</h1>
       
       {isMobile ? (

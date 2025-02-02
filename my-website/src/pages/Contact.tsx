@@ -1,8 +1,5 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState } from 'react';
 import { FaUser, FaEnvelope, FaPaperPlane, FaComment, FaQuestionCircle } from 'react-icons/fa';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Text } from '@react-three/drei';
-import * as THREE from 'three';
 
 export default function Contact() {
   const [name, setName] = useState('');
@@ -26,81 +23,15 @@ export default function Contact() {
     setIsCaptchaValid(parseInt(input, 10) === correctAnswer);
   };
 
-  const BinarySwirl = useMemo(() => {
-    return function BinarySwirl() {
-      const groupRef = useRef<THREE.Group>(null!);
-      
-      useFrame(() => {
-        if (groupRef.current) {
-          groupRef.current.rotation.z += 0.003; // Slow rotation effect
-        }
-      });
-
-      const binaryNumbers = [];
-      for (let i = 0; i < 100; i++) {
-        const angle = i * 0.3;
-        const radius = 0.1 * i;
-        binaryNumbers.push(
-          <Text
-            key={i}
-            position={[Math.cos(angle) * radius, Math.sin(angle) * radius, 0]}
-            fontSize={0.3}
-            color={Math.random() > 0.5 ? "#00FF00" : "#FFFF00"}
-          >
-            1010
-          </Text>
-        );
-      }
-
-      const perpendicularBinaryNumbers = [];
-      for (let i = 0; i < 100; i++) {
-        const angle = i * 0.3;
-        const radius = 0.1 * i;
-        perpendicularBinaryNumbers.push(
-          <Text
-            key={`p-${i}`}
-            position={[0, Math.cos(angle) * radius, Math.sin(angle) * radius]}
-            fontSize={0.3}
-            color={Math.random() > 0.5 ? "#00FF00" : "#FFFF00"}
-          >
-            1010
-          </Text>
-        );
-      }
-
-      return <group ref={groupRef}>{binaryNumbers}{perpendicularBinaryNumbers}</group>;
-    };
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formDataEncoded = new URLSearchParams();
-    formDataEncoded.append("realname", name);
-    formDataEncoded.append("email", email);
-    formDataEncoded.append("Message", message);
-    formDataEncoded.append("recipient", "contactme@josephbartram.co.uk");
-    formDataEncoded.append("subject", "Subject");
-    formDataEncoded.append("redirect", "https://www.josephbartram.co.uk/thankyou");
-    formDataEncoded.append("missing_fields_redirect", "https://www.josephbartram.co.uk/");
-    formDataEncoded.append("required", "realname,email,Message");
-
-    try {
-      const response = await fetch("https://www.josephbartram.co.uk/cgi-bin/FormMail.pl", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formDataEncoded.toString(),
-      });
-
-      if (response.ok) {
-        window.location.href = "/thank-you";
-      } else {
-        alert("Failed to send message. Please try again.");
-      }
-    } catch (error) {
-      console.error("Form submission error:", error);
-      alert("An error occurred. Please try again later.");
-    }
-  };
+    e.currentTarget.submit();
+    setTimeout(() => {
+        window.location.href = '/thank-you';
+    }, 500); // Delay redirection slightly to ensure form submits
+    e.preventDefault();
+    e.currentTarget.submit(); // Submit the form directly
+};
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen pt-20 md:pt-28 px-6 overflow-hidden transition-transform duration-700 ease-in-out">
@@ -108,7 +39,12 @@ export default function Contact() {
       
       <div className="relative flex flex-col md:flex-row items-center justify-center w-full max-w-5xl gap-6">
         {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="w-full md:w-2/3 bg-gray-800 p-6 rounded-lg shadow-lg">
+        <form action="https://www.josephbartram.co.uk/cgi-bin/FormMail.pl" method="POST" accept-charset="ISO-8859-1" target="hiddenFrame" onSubmit={handleSubmit} className="w-full md:w-2/3 bg-gray-800 opacity-80 p-6 rounded-lg shadow-lg">
+  <input type="hidden" name="recipient" value="contactme@josephbartram.co.uk" />
+  <input type="hidden" name="subject" value="New Contact Form Submission" />
+  <input type="hidden" name="redirect" value="https://www.josephbartram.co.uk/thank-you" />
+  <input type="hidden" name="missing_fields_redirect" value="https://www.josephbartram.co.uk/error.html" />
+  <input type="hidden" name="required" value="realname,email,Message" />
           {/* Name & Email Row */}
           <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
             <div className="w-full md:w-1/2">
@@ -182,16 +118,7 @@ export default function Contact() {
             Send Message <FaPaperPlane className="ml-2" />
           </button>
         </form>
-        
-        {/* 3D Binary Swirl Animation */}
-        <div className="hidden md:block w-1/3 h-64">
-          <Canvas>
-            <ambientLight intensity={0.5} />
-            <directionalLight position={[2, 2, 2]} />
-            <BinarySwirl />
-            <OrbitControls autoRotate autoRotateSpeed={1} />
-          </Canvas>
-        </div>
+          <iframe name="hiddenFrame" style={{ display: 'none' }} />
       </div>
     </div>
   );

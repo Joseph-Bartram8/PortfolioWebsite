@@ -25,7 +25,7 @@ export default function BinaryWall() {
               style={{
                 animationDelay: `${Math.random() * 3}s`,
                 animationDuration: `${3 + Math.random() * 2}s`,
-                transform: `translateY(-${Math.random()}vh) translateX(${Math.random()}vw)`,
+                transform: `translateY(-${200 + Math.random() * 200}vh) translateX(${Math.random() * 250}vw)`,
               }}
             >
               {Math.random() > 0.5 ? '1' : '0'}
