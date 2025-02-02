@@ -5,6 +5,9 @@ import NavigationBar from './components/NavigationBar'
 import './index.css'
 import Home from './pages/Home'
 import About from './pages/About'
+import Education from './pages/Education'
+import Portfolio from './pages/Portfolio'
+import Contact from './pages/Contact'
 import BinaryWall from './components/BinaryWall'
 
 createRoot(document.getElementById('root')!).render(
@@ -16,6 +19,9 @@ createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/education" element={<Education />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
     </Router>
