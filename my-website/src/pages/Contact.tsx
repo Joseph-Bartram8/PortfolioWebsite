@@ -74,16 +74,31 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch('https://portfoliowebsite-78sn.onrender.com/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, message })
-    });
+    const formDataEncoded = new URLSearchParams();
+    formDataEncoded.append("realname", name);
+    formDataEncoded.append("email", email);
+    formDataEncoded.append("Message", message);
+    formDataEncoded.append("recipient", "contactme@josephbartram.co.uk");
+    formDataEncoded.append("subject", "Subject");
+    formDataEncoded.append("redirect", "https://www.josephbartram.co.uk/thankyou");
+    formDataEncoded.append("missing_fields_redirect", "https://www.josephbartram.co.uk/");
+    formDataEncoded.append("required", "realname,email,Message");
 
-    if (response.ok) {
-      window.location.href = "/thank-you"; // Redirect to Thank You page
-    } else {
-      alert("Failed to send email.");
+    try {
+      const response = await fetch("https://www.josephbartram.co.uk/cgi-bin/FormMail.pl", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formDataEncoded.toString(),
+      });
+
+      if (response.ok) {
+        window.location.href = "/thank-you";
+      } else {
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("An error occurred. Please try again later.");
     }
   };
 
