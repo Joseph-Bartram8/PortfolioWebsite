@@ -27,7 +27,7 @@ Achievements:
     },
     { 
       name: "UCAS", 
-      logo: "/UCAS.png", 
+      logo: "/UCAS.png",
       description: `My responsibilities for this job were to help develop, test, and maintain UCAS products assigned to the team I was on. I also completed a two-year level 4 software engineering apprenticeship which helped me develop my skills in programming at an industry level, also giving me exposure to how a team operates.
 
 Achievements:
@@ -37,8 +37,8 @@ Achievements:
     },
     { 
       name: "ADP", 
-      logo: "/ADP.png", 
-      description: `For my level 3 computing college course I needed to do a week of work experience which I chose to do at ADP again, but this time working in the networking team which gave me experience in other areas of IT.
+      logo: "/ADP.png",
+      description: `Work Experience:<br/> <br/>For my level 3 computing college course I needed to do a week of work experience which I chose to do at ADP again, but this time working in the networking team which gave me experience in other areas of IT.
 • Worked inside a Server room, learning how to maintain them and ensure they are running properly.
 • Installed and configured work laptops for employees to use.
 
@@ -52,8 +52,8 @@ During my summer holidays after secondary school, I was given the opportunity to
   ];
 
   return (
-    <div className={`relative flex flex-col items-center justify-center min-h-screen pt-20 md:pt-28 px-6 overflow-hidden transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>
-      <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 md:mb-12">My Work Experience</h1>
+    <div className={`relative flex flex-col items-center justify-center overflow-hidden min-h-screen pt-20 md:pt-28 px-6 transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>
+      <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 md:mb-12">My Past Employment</h1>
       
       <div className="relative w-full max-w-6xl flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12">
         {/* Sidebar List of Companies */}
@@ -75,7 +75,7 @@ During my summer holidays after secondary school, I was given the opportunity to
           {activeCompany ? (
             <div className="text-left">
               <h2 className="text-3xl font-semibold mb-4">{activeCompany.name}</h2>
-              <p className="text-lg opacity-80 whitespace-pre-line">{activeCompany.description}</p>
+              <p className="text-lg opacity-80 whitespace-pre-line">{activeCompany.description }</p>
             </div>
           ) : (
             <p className="text-lg opacity-60">Select a company to see more details</p>

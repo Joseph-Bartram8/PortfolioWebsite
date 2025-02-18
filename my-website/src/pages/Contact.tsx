@@ -27,19 +27,19 @@ export default function Contact() {
     e.preventDefault();
     e.currentTarget.submit();
     setTimeout(() => {
-        window.location.href = '/thank-you';
+        window.location.href = '/ThankYou';
     }, 500); // Delay redirection slightly to ensure form submits
     e.preventDefault();
     e.currentTarget.submit(); // Submit the form directly
 };
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen pt-20 md:pt-28 px-6 overflow-hidden transition-transform duration-700 ease-in-out">
-      <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 w-auto md:w-250">Contact Me</h1>
+    <div className="relative flex flex-col items-center justify-center min-h-screen pt-20 md:pt-28 px-6 transition-transform duration-700 ease-in-out">
+      <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 w-auto">Contact Me</h1>
       
       <div className="relative flex flex-col md:flex-row items-center justify-center w-full max-w-5xl gap-6">
         {/* Contact Form */}
-        <form action="https://www.josephbartram.co.uk/cgi-bin/FormMail.pl" method="POST" accept-charset="ISO-8859-1" target="hiddenFrame" onSubmit={handleSubmit} className="w-full md:w-2/3 bg-gray-800 opacity-80 p-6 rounded-lg shadow-lg">
+        <form action="https://www.josephbartram.co.uk/cgi-bin/FormMail.pl" method="POST" acceptCharset="ISO-8859-1" target="hiddenFrame" onSubmit={handleSubmit} className="w-full md:w-2/3 bg-gray-800 opacity-80 p-6 rounded-lg shadow-lg">
   <input type="hidden" name="recipient" value="contactme@josephbartram.co.uk" />
   <input type="hidden" name="subject" value="New Contact Form Submission" />
   <input type="hidden" name="redirect" value="https://www.josephbartram.co.uk/thank-you" />

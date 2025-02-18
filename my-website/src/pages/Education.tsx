@@ -29,7 +29,7 @@ export default function Education() {
   ];
 
   return (
-    <div className={`relative flex flex-col items-center justify-center min-h-screen pt-20 md:pt-28 px-4 ${isMobile ? 'overflow-auto' : 'overflow-hidden'} transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>
+    <div className={`relative flex flex-col items-center justify-center min-h-600px pt-20 md:pt-28 px-4 overflow-auto transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>
       <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 md:mb-12">My Education</h1>
       
       {isMobile ? (
@@ -48,8 +48,8 @@ export default function Education() {
         </div>
       ) : (
         // Desktop Layout
-        <div className="relative w-full max-w-6xl flex flex-col items-center">
-          <div className="absolute w-1 bg-gray-500 h-full left-1/2 transform -translate-x-1/2"></div>
+        <div className="relative w-full h-auto max-w-6xl flex flex-col items-center overflow-auto">
+          <div className="absolute w-1 bg-gray-500 left-1/2 transform -translate-x-1/2"></div>
           {educationItems.map((item, index) => (
             <div key={item.name} className="relative w-full flex items-center justify-between mt-20">
               {index % 2 !== 0 && (
@@ -64,7 +64,7 @@ export default function Education() {
                 <div className="w-3/7 text-left pl-4 text-gray-400 text-base md:text-lg font-medium">{item.duration}</div>
               )}
               {/* School Logo Positioned on the Timeline */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 z-50 bg-white p-2 rounded-full shadow-lg overflow-hidden">
+              <div className="absolute left-1/2 transform -translate-x-1/2 z-50 bg-white p-2 rounded-full shadow-lg">
                 <img src={item.logo} alt={`${item.name} Logo`} className="w-12 h-12 md:w-16 md:h-16 object-cover rounded-full" />
               </div>
             </div>

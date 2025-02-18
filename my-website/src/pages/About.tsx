@@ -8,7 +8,7 @@ export default function About() {
   }, []);
 
   return (
-    <div className={`relative flex flex-col items-center justify-center min-h-screen py-10 px-6 overflow-hidden transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>
+    <div className={`relative flex flex-col items-center justify-center min-h-screen py-10 px-6 overflow-auto transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>
       <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 md:mb-12">About Me</h1>
       
       <div className="flex flex-col md:flex-row items-center md:items-start md:justify-center w-full max-w-5xl">
