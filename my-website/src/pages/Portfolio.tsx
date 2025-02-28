@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface WorkExperience {
   name: string;
@@ -7,12 +8,10 @@ interface WorkExperience {
 }
 
 export default function Portfolio() {
-  const [isTransitioning, setIsTransitioning] = useState(true);
   const [activeCompany, setActiveCompany] = useState<WorkExperience | null>(null);
 
   useEffect(() => {
-    setTimeout(() => setIsTransitioning(false), 100);
-    setActiveCompany(workExperiences[0]);
+    setActiveCompany(workExperiences[0]); // Set the first company as default
   }, []);
 
   const workExperiences: WorkExperience[] = [
@@ -52,36 +51,82 @@ During my summer holidays after secondary school, I was given the opportunity to
   ];
 
   return (
-    <div className={`relative flex flex-col items-center justify-center overflow-hidden min-h-screen pt-20 md:pt-28 px-6 transition-transform duration-700 ease-in-out ${isTransitioning ? 'translate-y-full' : 'translate-y-0'}`}>
-      <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 md:mb-12">My Past Employment</h1>
-      
+    <motion.div
+      className="relative flex flex-col items-center justify-center min-h-screen pt-20 md:pt-28 px-6"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      {/* Heading Animation */}
+      <motion.h1 
+        className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg mb-6 md:mb-12"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        My Past Employment
+      </motion.h1>
+
       <div className="relative w-full max-w-6xl flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12">
+        
         {/* Sidebar List of Companies */}
-        <div className="w-full md:w-1/3 flex flex-col space-y-4 md:space-y-6">
+        <motion.div 
+          className="w-full md:w-1/3 flex flex-col space-y-4 md:space-y-6"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.2 } }
+          }}
+        >
           {workExperiences.map((company) => (
-            <button 
+            <motion.button 
               key={company.name} 
               onClick={() => setActiveCompany(company)}
-              className={`flex items-center p-4 rounded-lg shadow-md transition-transform duration-300 hover:scale-105 w-full text-left cursor-pointer ${activeCompany?.name === company.name ? 'bg-gray-800 font-bold text-white ' : 'bg-gray-700 text-gray-300'}`}
+              className={`flex items-center p-4 rounded-lg shadow-md w-full text-left cursor-pointer ${
+                activeCompany?.name === company.name ? 'bg-gray-800 font-bold text-white ' : 'bg-gray-700 text-gray-300'
+              }`}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             >
-              <img src={company.logo} alt={`${company.name} Logo`} className="w-10 h-10 mr-4 rounded-full object-cover" />
+              <motion.img 
+                src={company.logo} 
+                alt={`${company.name} Logo`} 
+                className="w-10 h-10 mr-4 rounded-full object-cover"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              />
               <span className="text-lg font-medium">{company.name}</span>
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
         
         {/* Display Box for Active Company */}
-        <div className="w-full md:w-2/3 p-6 bg-gray-700 opacity-90 text-white rounded-lg shadow-lg transition-all duration-500 ease-in-out md:ml-8 min-h-[200px] flex items-center justify-center">
-          {activeCompany ? (
-            <div className="text-left">
-              <h2 className="text-3xl font-semibold mb-4">{activeCompany.name}</h2>
-              <p className="text-lg opacity-80 whitespace-pre-line">{activeCompany.description }</p>
-            </div>
-          ) : (
-            <p className="text-lg opacity-60">Select a company to see more details</p>
-          )}
-        </div>
+        <motion.div
+          className="w-full md:w-2/3 p-6 bg-gray-700 opacity-90 text-white rounded-lg shadow-lg md:ml-8 min-h-[200px] flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <AnimatePresence mode="wait">
+            {activeCompany && (
+              <motion.div
+                key={activeCompany.name}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+                className="text-left"
+              >
+                <h2 className="text-3xl font-semibold mb-4">{activeCompany.name}</h2>
+                <p className="text-lg opacity-80 whitespace-pre-line">{activeCompany.description}</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
